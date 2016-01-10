@@ -1,5 +1,8 @@
 package com.ethlo.persistence.tools.eclipselink;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +23,19 @@ public class SmokeTest
 	@Test
 	public void testInit()
 	{
-		
+		// Just to check initialization
 	}
 	
 	@Test
-	public void addCustomer()
+	public void addCustomerWithSingleIpEntryAndVerify()
 	{
 		final Customer c = new Customer();
 		c.setName("John Doe");
 		c.addIp(new IpEntry("204.54.12.14"));
 		customerRepo.save(c);
+		
+		final List<Customer> res = customerRepo.findAll();
+		assertThat(res).hasSize(1);
+		assertThat(c.getIps().get(0).getIp()).isEqualTo("204.54.12.14");
 	}
 }

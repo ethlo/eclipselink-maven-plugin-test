@@ -40,4 +40,9 @@ public class Customer
 	{
 		this.ips.add(ipEntry);
 	}
+
+	public List<IpEntry> getIps()
+	{
+		return this.ips;
+	}
 }

@@ -3,6 +3,10 @@ package com.ethlo.persistence.tools.eclipselink.test.converter;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+/**
+ * To efficiently store IP4 IPs in the database we store them as an integer. Using this 
+ * converter the entity can use a String with dot-notation.
+ */
 @Converter
 public class Ip4Converter implements AttributeConverter<String, Long>
 {
