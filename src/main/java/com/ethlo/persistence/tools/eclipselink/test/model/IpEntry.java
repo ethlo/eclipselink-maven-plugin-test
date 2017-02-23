@@ -1,7 +1,5 @@
 package com.ethlo.persistence.tools.eclipselink.test.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;

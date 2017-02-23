@@ -1,27 +1,28 @@
 package com.ethlo.persistence.tools.eclipselink;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.sql.DataSource;
+
 import org.eclipse.persistence.config.PersistenceUnitProperties;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
-import org.springframework.boot.orm.jpa.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
-import com.ethlo.persistence.tools.eclipselink.test.converter.Ip4Converter;
-import com.ethlo.persistence.tools.eclipselink.test.model.Customer;
-import com.ethlo.persistence.tools.eclipselink.test.repository.CustomerRepository;
-
-@EnableAutoConfiguration
-@EntityScan(basePackageClasses = {Ip4Converter.class, Customer.class})
-@EnableJpaRepositories(basePackageClasses = CustomerRepository.class)
+@SpringBootApplication
 public class TestCfg extends JpaBaseConfiguration
 {
-	@Override
+	protected TestCfg(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider)
+    {
+        super(dataSource, properties, jtaTransactionManagerProvider);
+    }
+	
+    @Override
 	protected AbstractJpaVendorAdapter createJpaVendorAdapter()
 	{
 		return new EclipseLinkJpaVendorAdapter();
