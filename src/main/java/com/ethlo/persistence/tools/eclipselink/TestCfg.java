@@ -10,6 +10,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers;
 import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.transaction.jta.JtaTransactionManager;
@@ -17,11 +18,11 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 @SpringBootApplication
 public class TestCfg extends JpaBaseConfiguration
 {
-	protected TestCfg(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider)
+    protected TestCfg(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManager, ObjectProvider<TransactionManagerCustomizers> transactionManagerCustomizers)
     {
-        super(dataSource, properties, jtaTransactionManagerProvider);
+        super(dataSource, properties, jtaTransactionManager, transactionManagerCustomizers);
     }
-	
+
     @Override
 	protected AbstractJpaVendorAdapter createJpaVendorAdapter()
 	{
